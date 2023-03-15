@@ -5,7 +5,7 @@ use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use bevy::winit::WinitWindows;
 use bevy::DefaultPlugins;
-use bevy_game::GamePlugin;
+use seldom_fn_plugin::FnPluginExt;
 use std::io::Cursor;
 use winit::window::Icon;
 
@@ -22,7 +22,7 @@ fn main() {
             }),
             ..default()
         }))
-        .add_plugin(GamePlugin)
+        .fn_plugin(bevy_game::game_plugin)
         .add_system(set_window_icon.on_startup())
         .run();
 }

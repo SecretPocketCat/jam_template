@@ -3,19 +3,13 @@ use crate::loading::TextureAssets;
 use crate::GameState;
 use bevy::prelude::*;
 
-pub struct PlayerPlugin;
+pub fn player_plugin(app: &mut App) {
+    app.add_system(spawn_player.in_schedule(OnEnter(GameState::Playing)))
+        .add_system(move_player.in_set(OnUpdate(GameState::Playing)));
+}
 
 #[derive(Component)]
 pub struct Player;
-
-/// This plugin handles player related stuff like movement
-/// Player logic is only active during the State `GameState::Playing`
-impl Plugin for PlayerPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_system(spawn_player.in_schedule(OnEnter(GameState::Playing)))
-            .add_system(move_player.in_set(OnUpdate(GameState::Playing)));
-    }
-}
 
 fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
     commands

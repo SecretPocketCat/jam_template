@@ -7,6 +7,7 @@ mod loading;
 mod menu;
 mod mouse;
 mod player;
+mod tools;
 mod tween;
 
 use bevy::app::App;

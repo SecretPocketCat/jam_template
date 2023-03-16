@@ -505,6 +505,7 @@ dependencies = [
  "image",
  "rand",
  "seldom_fn_plugin",
+ "web-sys",
  "winit",
 ]
 

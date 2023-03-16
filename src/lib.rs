@@ -7,6 +7,7 @@ mod loading;
 mod menu;
 mod mouse;
 mod player;
+mod save;
 mod tools;
 mod tween;
 
@@ -41,6 +42,7 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(tween::game_tween_plugin)
         .fn_plugin(mouse::mouse_plugin)
         .fn_plugin(player::player_plugin)
+        .fn_plugin(save::save_plugin)
         .add_plugin(TweeningPlugin);
 
     #[cfg(debug_assertions)]

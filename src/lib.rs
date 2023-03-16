@@ -1,8 +1,12 @@
+#![feature(let_chains)]
+
 mod actions;
 mod audio;
 mod loading;
 mod menu;
+mod mouse;
 mod player;
+mod render;
 mod tween;
 
 use bevy::app::App;
@@ -32,6 +36,7 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(actions::actions_plugin)
         .fn_plugin(audio::audio_plugin)
         .fn_plugin(tween::game_tween_plugin)
+        .fn_plugin(mouse::mouse_plugin)
         .fn_plugin(player::player_plugin);
 
     #[cfg(debug_assertions)]

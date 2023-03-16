@@ -2,11 +2,11 @@
 
 mod actions;
 mod audio;
+mod camera;
 mod loading;
 mod menu;
 mod mouse;
 mod player;
-mod render;
 mod tween;
 
 use bevy::app::App;
@@ -33,6 +33,7 @@ enum GameState {
 pub fn game_plugin(app: &mut App) {
     app.add_state::<GameState>()
         .fn_plugin(loading::loading_plugin)
+        .fn_plugin(camera::camera_plugin)
         .fn_plugin(menu::menu_plugin)
         .fn_plugin(actions::actions_plugin)
         .fn_plugin(audio::audio_plugin)

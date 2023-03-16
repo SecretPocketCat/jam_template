@@ -13,6 +13,7 @@ use bevy::app::App;
 #[cfg(debug_assertions)]
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
+use bevy_tweening::TweeningPlugin;
 use seldom_fn_plugin::FnPluginExt;
 
 // This example game uses States to separate logic
@@ -37,7 +38,8 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(audio::audio_plugin)
         .fn_plugin(tween::game_tween_plugin)
         .fn_plugin(mouse::mouse_plugin)
-        .fn_plugin(player::player_plugin);
+        .fn_plugin(player::player_plugin)
+        .add_plugin(TweeningPlugin);
 
     #[cfg(debug_assertions)]
     {

@@ -501,6 +501,7 @@ dependencies = [
  "bevy_asset_loader",
  "bevy_kira_audio",
  "bevy_tweening",
+ "bevycheck",
  "embed-resource",
  "image",
  "rand",
@@ -999,6 +1000,16 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "winit",
+]
+
+[[package]]
+name = "bevycheck"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35eff4e62ba08efdfa824e835bd7d33875d3f9871dab5c41a8d1c9ed374e89af"
+dependencies = [
+ "quote",
+ "syn",
 ]
 
 [[package]]

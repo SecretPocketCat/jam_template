@@ -3,6 +3,7 @@ mod audio;
 mod loading;
 mod menu;
 mod player;
+mod tween;
 
 use bevy::app::App;
 #[cfg(debug_assertions)]
@@ -30,6 +31,7 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(menu::menu_plugin)
         .fn_plugin(actions::actions_plugin)
         .fn_plugin(audio::audio_plugin)
+        .fn_plugin(tween::game_tween_plugin)
         .fn_plugin(player::player_plugin);
 
     #[cfg(debug_assertions)]

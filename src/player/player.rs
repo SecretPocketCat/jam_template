@@ -1,4 +1,4 @@
-use crate::{assets::TextureAssets, input::actions::Actions};
+use crate::{assets::textures::TextureAssets, input::actions::Actions};
 use bevy::prelude::*;
 
 #[derive(Component)]

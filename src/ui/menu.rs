@@ -1,4 +1,4 @@
-use crate::{assets::FontAssets, state::GameState};
+use crate::{assets::fonts::FontAssets, state::GameState};
 use bevy::prelude::*;
 
 pub(super) fn menu_plugin(app: &mut App) {

@@ -1,4 +1,4 @@
-use crate::{assets::AudioAssets, input::actions::Actions};
+use crate::{assets::audio::AudioAssets, input::actions::Actions};
 use bevy::prelude::*;
 use bevy_kira_audio::prelude::*;
 

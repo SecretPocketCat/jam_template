@@ -5,52 +5,7 @@ use bevy_tweening::lens::{SpriteColorLens, TransformPositionLens, TransformScale
 use bevy_tweening::*;
 use std::time::Duration;
 
-pub fn game_tween_plugin(app: &mut bevy::prelude::App) {
-    app.add_system(on_tween_completed)
-        .add_system(component_animator_system::<TextureAtlasSprite>);
-}
-
-#[repr(u64)]
-#[derive(Clone)]
-pub enum TweenDoneAction {
-    None = 0,
-    DespawnRecursive = 1,
-}
-
-impl From<u64> for TweenDoneAction {
-    fn from(val: u64) -> Self {
-        unsafe { ::std::mem::transmute(val) }
-    }
-}
-
-impl From<TweenDoneAction> for u64 {
-    fn from(val: TweenDoneAction) -> Self {
-        val as u64
-    }
-}
-
-fn on_tween_completed(
-    mut commands: Commands,
-    mut ev_reader: EventReader<TweenCompleted>,
-    entity_q: Query<Entity>,
-) {
-    for ev in ev_reader.iter() {
-        match TweenDoneAction::from(ev.user_data) {
-            TweenDoneAction::None => {}
-            TweenDoneAction::DespawnRecursive => {
-                if entity_q.get(ev.entity).is_ok() {
-                    commands.entity(ev.entity).despawn_recursive();
-                }
-            }
-        }
-    }
-}
-
-pub fn lerp_color(from: Color, to: Color, ratio: f32) -> Color {
-    let start: Vec4 = from.into();
-    let end: Vec4 = to.into();
-    start.lerp(end, ratio).into()
-}
+use super::tween_events::TweenDoneAction;
 
 pub fn delay_tween<T: 'static>(tween: Tween<T>, delay_ms: u64) -> Sequence<T> {
     if delay_ms > 0 {
@@ -428,4 +383,10 @@ impl Lens<Text> for TextRelativeColorLens {
     fn update_on_tween_start(&mut self, target: &Text) {
         self.start = target.sections.iter().map(|s| s.style.color).collect();
     }
+}
+
+fn lerp_color(from: Color, to: Color, ratio: f32) -> Color {
+    let start: Vec4 = from.into();
+    let end: Vec4 = to.into();
+    start.lerp(end, ratio).into()
 }

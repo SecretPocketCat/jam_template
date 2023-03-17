@@ -1,17 +1,10 @@
-use crate::actions::Actions;
-use crate::loading::TextureAssets;
-use crate::GameState;
+use crate::{assets::TextureAssets, input::actions::Actions};
 use bevy::prelude::*;
-
-pub fn player_plugin(app: &mut App) {
-    app.add_system(spawn_player.in_schedule(OnEnter(GameState::Playing)))
-        .add_system(move_player.in_set(OnUpdate(GameState::Playing)));
-}
 
 #[derive(Component)]
 pub struct Player;
 
-fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
+pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
     commands
         .spawn(SpriteBundle {
             texture: textures.texture_bevy.clone(),
@@ -21,7 +14,7 @@ fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
         .insert(Player);
 }
 
-fn move_player(
+pub(super) fn move_player(
     time: Res<Time>,
     actions: Res<Actions>,
     mut player_query: Query<&mut Transform, With<Player>>,

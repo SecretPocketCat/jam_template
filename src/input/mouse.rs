@@ -1,8 +1,8 @@
 use bevy::{prelude::*, window::PrimaryWindow};
 
-use crate::camera::PrimaryCamera;
+use crate::render::camera::PrimaryCamera;
 
-pub fn mouse_plugin(app: &mut App) {
+pub(super) fn mouse_plugin(app: &mut App) {
     app.init_resource::<CursorWorldPosition>()
         .init_resource::<CursorTouch>()
         .add_system(store_cursor_pos)

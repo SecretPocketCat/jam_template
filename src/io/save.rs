@@ -1,13 +1,9 @@
 use bevy::prelude::*;
 use web_sys;
 
-pub fn save_plugin(app: &mut App) {
-    app.add_system(save_game).add_startup_system(load_game);
-}
-
 const SAVE_KEY: &str = "game_save";
 
-fn save_game(// mut lvl_evr: EventReader<LevelEv>, lvl: Res<CurrentLevel>
+pub(super) fn save_game(// mut lvl_evr: EventReader<LevelEv>, lvl: Res<CurrentLevel>
 ) {
     // for ev in lvl_evr.iter() {
     //     if let LevelEv::LevelOut = ev {
@@ -16,7 +12,7 @@ fn save_game(// mut lvl_evr: EventReader<LevelEv>, lvl: Res<CurrentLevel>
     // }
 }
 
-fn load_game() {
+pub(super) fn load_game() {
     // let lvl = read_save();
 }
 

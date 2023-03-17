@@ -1,8 +1,7 @@
-use crate::loading::FontAssets;
-use crate::GameState;
+use crate::{assets::FontAssets, state::GameState};
 use bevy::prelude::*;
 
-pub fn menu_plugin(app: &mut App) {
+pub(super) fn menu_plugin(app: &mut App) {
     app.init_resource::<ButtonColors>()
         .add_system(setup_menu.in_schedule(OnEnter(GameState::Menu)))
         .add_system(click_play_button.in_set(OnUpdate(GameState::Menu)))

@@ -4,7 +4,12 @@
 - [x] add tweening
 - [x] port utils from rusty cauldron (anim, mouse, save, tools, tween)
 - [x] tidy up folder hierarchy
-- [ ] port utils from not quite tennis? (audio maybe?)
+- [x] port utils from not quite tennis? (audio maybe?)
 - [ ] add leafwing input
 - [ ] game pause
+- [ ] splash screen
+- [ ] fade state transition
+- [ ] reset state
+- [ ] add time crate
+- [ ] screen shake
 - [ ] opacity propagation?

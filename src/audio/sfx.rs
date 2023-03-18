@@ -6,6 +6,7 @@ use rand::*;
 
 use crate::assets::audio::SfxAssets;
 
+// todo: use sfx + master volume
 pub(super) fn sfx_plugin(app: &mut bevy::prelude::App) {
     app.add_audio_channel::<SfxChannel>().add_system(
         play_sfx_on_evt::<MouseButtonInput>

@@ -1,41 +1,55 @@
-use bevy::prelude::*;
-use web_sys;
+use bevy::{prelude::*, window::WindowCloseRequested};
+use bevy_pkv::PkvStore;
+use serde::{Deserialize, Serialize};
 
-const SAVE_KEY: &str = "game_save";
+use crate::{state::GameState, GAME_NAME};
 
-pub(super) fn save_game(// mut lvl_evr: EventReader<LevelEv>, lvl: Res<CurrentLevel>
-) {
-    // for ev in lvl_evr.iter() {
-    //     if let LevelEv::LevelOut = ev {
-    //         write_save(lvl.level_index);
-    //     }
-    // }
+const SETTINGS_KEY: &str = "game_save";
+
+pub(super) fn save_plugin(app: &mut App) {
+    app.insert_resource(PkvStore::new("SecretPocketCat", GAME_NAME))
+        .add_system(
+            save_game
+                .in_base_set(CoreSet::PostUpdate)
+                .run_if(state_changed::<GameState>().or_else(on_event::<WindowCloseRequested>())),
+        )
+        .add_startup_system(load_game);
 }
 
-pub(super) fn load_game() {
-    // let lvl = read_save();
+#[derive(Serialize, Deserialize, Resource, Clone)]
+pub struct Volume {
+    master: f32,
+    sfx: f32,
+    music: f32,
+    muted: bool,
 }
 
-// todo: handle non-wasm, also error handling...
-fn write_save(level: usize) {
-    if cfg!(target_family = "wasm") {
-        let storage = web_sys::window().unwrap().local_storage().unwrap().unwrap();
-        storage.set_item(SAVE_KEY, &level.to_string()).unwrap();
-    } else {
-        todo!();
-    }
+#[derive(Serialize, Deserialize)]
+pub struct GameSettings {
+    volume: Volume,
 }
 
-// todo: handle non-wasm, also error handling...
-fn read_save() -> usize {
-    if cfg!(target_family = "wasm") {
-        let storage = web_sys::window().unwrap().local_storage().unwrap().unwrap();
+fn save_game(mut pkv: ResMut<PkvStore>, volume_set: Res<Volume>) {
+    pkv.set(
+        SETTINGS_KEY,
+        &GameSettings {
+            volume: volume_set.clone(),
+        },
+    )
+    .expect("failed to store settings");
+}
 
-        match storage.get_item(SAVE_KEY).unwrap() {
-            Some(val) => str::parse(&val).unwrap_or(0),
-            None => 0,
-        }
-    } else {
-        todo!();
-    }
+fn load_game(pkv: Res<PkvStore>, mut cmd: Commands) {
+    let settings = pkv
+        .get::<GameSettings>(SETTINGS_KEY)
+        .unwrap_or_else(|_| GameSettings {
+            volume: Volume {
+                master: 0.5,
+                sfx: 0.5,
+                music: 0.5,
+                muted: false,
+            },
+        });
+
+    cmd.insert_resource(settings.volume);
 }

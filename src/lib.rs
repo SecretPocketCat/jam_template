@@ -18,6 +18,8 @@ mod state;
 mod tools;
 mod ui;
 
+pub const GAME_NAME: &str = "todo";
+
 pub fn game_plugin(app: &mut App) {
     app.add_state::<GameState>()
         .fn_plugin(animation::animation_plugin)

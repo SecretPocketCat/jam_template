@@ -33,7 +33,7 @@ pub fn game_plugin(app: &mut App) {
 
     #[cfg(debug_assertions)]
     {
-        app.add_plugin(FrameTimeDiagnosticsPlugin::default())
-            .add_plugin(LogDiagnosticsPlugin::default());
+        // app.add_plugin(FrameTimeDiagnosticsPlugin::default())
+        //     .add_plugin(LogDiagnosticsPlugin::default());
     }
 }

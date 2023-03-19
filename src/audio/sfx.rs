@@ -5,14 +5,18 @@ use rand::seq::SliceRandom;
 use rand::*;
 
 use crate::assets::audio::SfxAssets;
+use crate::io::save::VolumeSettings;
+use crate::state::GameState;
 
 // todo: use sfx + master volume
 pub(super) fn sfx_plugin(app: &mut bevy::prelude::App) {
-    app.add_audio_channel::<SfxChannel>().add_system(
-        play_sfx_on_evt::<MouseButtonInput>
-            .in_base_set(CoreSet::PostUpdate)
-            .run_if(resource_exists::<SfxAssets>()),
-    );
+    app.add_audio_channel::<SfxChannel>()
+        .add_system(
+            play_sfx_on_evt::<MouseButtonInput>
+                .in_base_set(CoreSet::PostUpdate)
+                .run_if(resource_exists::<SfxAssets>()),
+        )
+        .add_system(set_sfx_volume.run_if(resource_changed::<VolumeSettings>()));
 }
 
 #[derive(Resource)]
@@ -45,6 +49,7 @@ fn play_sfx_on_evt<TEvt: Event + SfxEv>(
     mut ev_r: EventReader<TEvt>,
     audio: Res<AudioChannel<SfxChannel>>,
     sfx: Res<SfxAssets>,
+    volume: Res<VolumeSettings>,
 ) {
     let mut rand = thread_rng();
 
@@ -54,7 +59,14 @@ fn play_sfx_on_evt<TEvt: Event + SfxEv>(
         }
 
         if let Some(sfx_handle) = TEvt::get_sfx_handles(&sfx).choose(&mut rand) {
-            audio.play(sfx_handle.clone()).with_volume(ev.get_volume());
+            audio
+                .play(sfx_handle.clone())
+                .with_volume(ev.get_volume() * volume.get_sfx_volume());
         }
     }
+}
+
+fn set_sfx_volume(audio: Res<AudioChannel<SfxChannel>>, volume: Res<VolumeSettings>) {
+    audio.set_volume(volume.get_sfx_volume());
+    warn!("setting volume {}", volume.get_sfx_volume());
 }

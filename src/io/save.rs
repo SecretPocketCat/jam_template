@@ -17,19 +17,37 @@ pub(super) fn save_plugin(app: &mut App) {
 }
 
 #[derive(Serialize, Deserialize, Resource, Clone)]
-pub struct Volume {
-    master: f32,
-    sfx: f32,
-    music: f32,
+pub struct VolumeSettings {
+    master: f64,
+    sfx: f64,
+    music: f64,
     muted: bool,
+}
+
+impl VolumeSettings {
+    pub fn get_sfx_volume(&self) -> f64 {
+        self.master * self.sfx * self.muted_f64()
+    }
+
+    pub fn get_music_volume(&self) -> f64 {
+        self.master * self.music * self.muted_f64()
+    }
+
+    fn muted_f64(&self) -> f64 {
+        if self.muted {
+            0.
+        } else {
+            1.
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct GameSettings {
-    volume: Volume,
+    volume: VolumeSettings,
 }
 
-fn save_game(mut pkv: ResMut<PkvStore>, volume_set: Res<Volume>) {
+fn save_game(mut pkv: ResMut<PkvStore>, volume_set: Res<VolumeSettings>) {
     pkv.set(
         SETTINGS_KEY,
         &GameSettings {
@@ -43,7 +61,7 @@ fn load_game(pkv: Res<PkvStore>, mut cmd: Commands) {
     let settings = pkv
         .get::<GameSettings>(SETTINGS_KEY)
         .unwrap_or_else(|_| GameSettings {
-            volume: Volume {
+            volume: VolumeSettings {
                 master: 0.5,
                 sfx: 0.5,
                 music: 0.5,

@@ -1,9 +1,11 @@
-use crate::{assets::textures::TextureAssets, input::actions::Actions};
+use crate::{assets::textures::TextureAssets, input::actions::PlayerAction};
 use bevy::prelude::*;
+use leafwing_input_manager::prelude::*;
 
 #[derive(Component)]
 pub struct Player;
 
+// todo: bind gamepads?
 pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>) {
     commands
         .spawn(SpriteBundle {
@@ -11,24 +13,26 @@ pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>)
             transform: Transform::from_translation(Vec3::new(0., 0., 1.)),
             ..Default::default()
         })
-        .insert(Player);
+        .insert(Player)
+        .insert(InputManagerBundle::<PlayerAction> {
+            input_map: InputMap::default()
+                .insert(DualAxis::left_stick(), PlayerAction::Move)
+                .insert(VirtualDPad::wasd(), PlayerAction::Move)
+                .insert(VirtualDPad::arrow_keys(), PlayerAction::Move)
+                .build(),
+            ..default()
+        });
 }
 
 pub(super) fn move_player(
     time: Res<Time>,
-    actions: Res<Actions>,
-    mut player_query: Query<&mut Transform, With<Player>>,
+    mut player_query: Query<(&mut Transform, &ActionState<PlayerAction>), With<Player>>,
 ) {
-    if actions.player_movement.is_none() {
-        return;
-    }
     let speed = 150.;
-    let movement = Vec3::new(
-        actions.player_movement.unwrap().x * speed * time.delta_seconds(),
-        actions.player_movement.unwrap().y * speed * time.delta_seconds(),
-        0.,
-    );
-    for mut player_transform in &mut player_query {
-        player_transform.translation += movement;
+
+    for (mut player_transform, actions) in &mut player_query {
+        if let Some(movement) = actions.clamped_axis_pair(PlayerAction::Move) && movement.xy() != Vec2::ZERO {
+            player_transform.translation += movement.xy().extend(0.) *  speed * time.delta_seconds_f64() as f32;
+        }
     }
 }

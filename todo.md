@@ -6,10 +6,10 @@
 - [x] tidy up folder hierarchy
 - [x] port utils from not quite tennis? (audio maybe?)
 - [x] add leafwing input
+- [x] add time crate
 - [ ] game pause
 - [ ] splash screen
-- [ ] fade state transition
 - [ ] reset state
-- [ ] add time crate
 - [ ] screen shake
 - [ ] opacity propagation?
+- [ ] fade state transition

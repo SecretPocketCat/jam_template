@@ -15,6 +15,7 @@ mod io;
 mod player;
 mod render;
 mod state;
+mod time;
 mod tools;
 mod ui;
 
@@ -29,6 +30,7 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(ui::ui_plugin)
         .fn_plugin(input::input_plugin)
         .fn_plugin(player::player_plugin)
+        .fn_plugin(time::time_plugin)
         .fn_plugin(io::io_plugin);
 
     #[cfg(debug_assertions)]

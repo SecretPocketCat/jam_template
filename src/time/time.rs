@@ -80,3 +80,8 @@ impl ScaledTimeMut<'_> {
         &mut self.time_scale
     }
 }
+
+pub(super) fn update_time_scale<const SCALE: usize>(mut time: ScaledTimeMut) {
+    //todo: tween?
+    time.set_time_scale(SCALE as f32);
+}

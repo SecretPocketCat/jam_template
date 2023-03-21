@@ -1,11 +1,11 @@
-use crate::{assets::fonts::FontAssets, state::GameState};
+use crate::{assets::fonts::FontAssets, state::AppState};
 use bevy::prelude::*;
 
 pub(super) fn menu_plugin(app: &mut App) {
     app.init_resource::<ButtonColors>()
-        .add_system(setup_menu.in_schedule(OnEnter(GameState::Menu)))
-        .add_system(click_play_button.in_set(OnUpdate(GameState::Menu)))
-        .add_system(cleanup_menu.in_schedule(OnExit(GameState::Menu)));
+        .add_system(setup_menu.in_schedule(OnEnter(AppState::Menu)))
+        .add_system(click_play_button.in_set(OnUpdate(AppState::Menu)))
+        .add_system(cleanup_menu.in_schedule(OnExit(AppState::Menu)));
 }
 
 #[derive(Resource)]
@@ -54,7 +54,7 @@ fn setup_menu(
 
 fn click_play_button(
     button_colors: Res<ButtonColors>,
-    mut state: ResMut<NextState<GameState>>,
+    mut state: ResMut<NextState<AppState>>,
     mut interaction_query: Query<
         (&Interaction, &mut BackgroundColor),
         (Changed<Interaction>, With<Button>),
@@ -63,7 +63,7 @@ fn click_play_button(
     for (interaction, mut color) in &mut interaction_query {
         match *interaction {
             Interaction::Clicked => {
-                state.set(GameState::Playing);
+                state.set(AppState::Game);
             }
             Interaction::Hovered => {
                 *color = button_colors.hovered.into();

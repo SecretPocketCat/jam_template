@@ -1,16 +1,20 @@
 use bevy::prelude::*;
 
 #[derive(States, Default, Clone, Eq, PartialEq, Debug, Hash)]
-pub enum GameState {
+pub enum AppState {
     #[default]
     Loading,
-    Playing,
     Menu,
+    Game,
 }
 
 #[derive(States, Default, Clone, Eq, PartialEq, Debug, Hash)]
-pub enum PauseState {
+pub enum GameState {
     #[default]
-    Unpaused,
+    Running,
     Paused,
+}
+
+pub fn reset_state<T: States>(mut state: ResMut<NextState<T>>) {
+    state.set(T::default())
 }

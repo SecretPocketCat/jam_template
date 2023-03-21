@@ -3,7 +3,7 @@ use std::ops::RangeInclusive;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 
-use crate::GameState;
+use crate::AppState;
 
 pub mod audio;
 pub mod fonts;
@@ -15,11 +15,11 @@ use self::window_icon::set_window_icon;
 pub fn assets_plugin(app: &mut App) {
     app.add_startup_system(set_window_icon)
         .add_startup_system(audio::setup_sfx_assets)
-        .add_loading_state(LoadingState::new(GameState::Loading).continue_to_state(GameState::Menu))
-        .add_collection_to_loading_state::<_, fonts::FontAssets>(GameState::Loading)
-        .add_collection_to_loading_state::<_, audio::SfxAssets>(GameState::Loading)
-        .add_collection_to_loading_state::<_, audio::AudioAssets>(GameState::Loading)
-        .add_collection_to_loading_state::<_, textures::TextureAssets>(GameState::Loading);
+        .add_loading_state(LoadingState::new(AppState::Loading).continue_to_state(AppState::Menu))
+        .add_collection_to_loading_state::<_, fonts::FontAssets>(AppState::Loading)
+        .add_collection_to_loading_state::<_, audio::SfxAssets>(AppState::Loading)
+        .add_collection_to_loading_state::<_, audio::AudioAssets>(AppState::Loading)
+        .add_collection_to_loading_state::<_, textures::TextureAssets>(AppState::Loading);
 }
 
 fn add_dynamic_assets(

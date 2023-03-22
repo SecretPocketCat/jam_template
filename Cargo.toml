@@ -61,7 +61,7 @@ bevy_tweening = { git = "https://github.com/SecretPocketCat/bevy_tweening", bran
 bevycheck = "0.5.2"
 bevy_pkv = "0.7.0"
 serde = "1.0.157"
-leafwing-input-manager = "0.9.0"
+leafwing-input-manager = "0.9.1"
 
 [build-dependencies]
 embed-resource = "1.4"

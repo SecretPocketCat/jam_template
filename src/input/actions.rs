@@ -18,3 +18,14 @@ pub enum UiAction {
     Confirm,
     Cancel,
 }
+
+pub fn any_player_just_released<A: Actionlike>(
+    action: A,
+) -> impl FnMut(Query<&ActionState<A>>) -> bool {
+    move |input_q: Query<&ActionState<A>>| {
+        input_q
+            .iter()
+            .find(|input| input.just_released(action.clone()))
+            .is_some()
+    }
+}

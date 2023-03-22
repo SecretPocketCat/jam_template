@@ -7,5 +7,7 @@ mod pause;
 mod state;
 
 pub fn state_plugin(app: &mut App) {
-    app.fn_plugin(pause::pause_plugin);
+    app.add_state::<AppState>()
+        .add_state::<GameState>()
+        .fn_plugin(pause::pause_plugin);
 }

@@ -1,6 +1,6 @@
 use crate::{
     assets::textures::TextureAssets,
-    input::actions::PlayerAction,
+    input::actions::{PlayerAction, UiAction},
     time::time::{ScaledTime, ScaledTimeDelta},
 };
 use bevy::prelude::*;
@@ -23,6 +23,19 @@ pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>)
                 .insert(DualAxis::left_stick(), PlayerAction::Move)
                 .insert(VirtualDPad::wasd(), PlayerAction::Move)
                 .insert(VirtualDPad::arrow_keys(), PlayerAction::Move)
+                .insert(KeyCode::Escape, PlayerAction::Pause)
+                .insert(GamepadButtonType::Start, PlayerAction::Pause)
+                .build(),
+            ..default()
+        })
+        // this should maybe be added to ui, not the player?
+        .insert(InputManagerBundle::<UiAction> {
+            input_map: InputMap::default()
+                .insert(KeyCode::Escape, UiAction::Cancel)
+                .insert(GamepadButtonType::East, UiAction::Cancel)
+                .insert(KeyCode::Return, UiAction::Confirm)
+                .insert(KeyCode::Space, UiAction::Confirm)
+                .insert(GamepadButtonType::South, UiAction::Confirm)
                 .build(),
             ..default()
         });

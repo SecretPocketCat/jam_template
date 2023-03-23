@@ -7,7 +7,7 @@
 - [x] port utils from not quite tennis? (audio maybe?)
 - [x] add leafwing input
 - [x] add time crate
-- [ ] game pause
+- [x] game pause
 - [ ] splash screen
 - [ ] reset state
 - [ ] screen shake

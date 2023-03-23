@@ -6,3 +6,9 @@ pub struct TextureAssets {
     #[asset(path = "textures/bevy.png")]
     pub texture_bevy: Handle<Image>,
 }
+
+#[derive(AssetCollection, Resource)]
+pub struct SplashScreenTextureAssets {
+    #[asset(path = "textures/bevy.png")]
+    pub bevy: Handle<Image>,
+}

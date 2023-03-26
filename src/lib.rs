@@ -5,7 +5,7 @@ use bevy::app::App;
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use seldom_fn_plugin::FnPluginExt;
 
-use state::GameState;
+use state::{AppState, GameState};
 
 mod animation;
 mod assets;
@@ -22,7 +22,7 @@ mod ui;
 pub const GAME_NAME: &str = "todo";
 
 pub fn game_plugin(app: &mut App) {
-    app.add_state::<GameState>()
+    app.fn_plugin(state::state_plugin)
         .fn_plugin(animation::animation_plugin)
         .fn_plugin(assets::assets_plugin)
         .fn_plugin(audio::audio_plugin)

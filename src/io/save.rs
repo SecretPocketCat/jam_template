@@ -2,7 +2,7 @@ use bevy::{prelude::*, window::WindowCloseRequested};
 use bevy_pkv::PkvStore;
 use serde::{Deserialize, Serialize};
 
-use crate::{state::GameState, GAME_NAME};
+use crate::{state::AppState, GAME_NAME};
 
 const SETTINGS_KEY: &str = "game_save";
 
@@ -11,7 +11,7 @@ pub(super) fn save_plugin(app: &mut App) {
         .add_system(
             save_game
                 .in_base_set(CoreSet::PostUpdate)
-                .run_if(state_changed::<GameState>().or_else(on_event::<WindowCloseRequested>())),
+                .run_if(state_changed::<AppState>().or_else(on_event::<WindowCloseRequested>())),
         )
         .add_startup_system(load_game);
 }

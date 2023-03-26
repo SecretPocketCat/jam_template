@@ -52,13 +52,9 @@ bevy = { version = "0.10", default-features = false }
 bevy_kira_audio = { version = "0.15", features = ["mp3"] }
 bevy_asset_loader = { version = "0.15", features = [
     "standard_dynamic_assets",
-    "iyes_progress",
+    "progress_tracking",
 ] }
 rand = { version = "0.8.3" }
-
-# keep the following in sync with Bevy's dependencies
-winit = { version = "0.28", default-features = false }
-image = { version = "0.24", default-features = false }
 seldom_fn_plugin = "0.3.0"
 bevy_tweening = { git = "https://github.com/SecretPocketCat/bevy_tweening", branch = "main" }
 bevycheck = "0.5.2"
@@ -66,6 +62,10 @@ bevy_pkv = "0.7.0"
 serde = "1.0.157"
 leafwing-input-manager = "0.9.1"
 iyes_progress = "0.8.0"
+
+# keep the following in sync with Bevy's dependencies
+winit = { version = "0.28", default-features = false }
+image = { version = "0.24", default-features = false }
 
 [build-dependencies]
 embed-resource = "1.4"

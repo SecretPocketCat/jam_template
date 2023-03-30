@@ -239,20 +239,20 @@ pub fn get_scale_tween(
     tween
 }
 
-pub fn get_fade_out_sprite_anim(
-    start_col: Color,
-    duration_ms: u64,
-    on_completed: Option<TweenDoneAction>,
-) -> Animator<Sprite> {
-    Animator::new(get_fade_out_sprite_tween(
-        start_col,
-        duration_ms,
-        on_completed,
-    ))
+pub fn get_fade_in_tween(duration_ms: u64, on_completed: Option<TweenDoneAction>) -> Tween<Sprite> {
+    get_sprite_color_tween(Color::NONE, Color::WHITE, duration_ms, on_completed)
 }
 
-pub fn get_fade_out_sprite_tween(
+pub fn get_fade_out_tween(
+    duration_ms: u64,
+    on_completed: Option<TweenDoneAction>,
+) -> Tween<Sprite> {
+    get_sprite_color_tween(Color::WHITE, Color::NONE, duration_ms, on_completed)
+}
+
+pub fn get_sprite_color_tween(
     start_col: Color,
+    end_col: Color,
     duration_ms: u64,
     on_completed: Option<TweenDoneAction>,
 ) -> Tween<Sprite> {
@@ -261,7 +261,7 @@ pub fn get_fade_out_sprite_tween(
         Duration::from_millis(duration_ms),
         SpriteColorLens {
             start: start_col,
-            end: Color::NONE,
+            end: end_col,
         },
     );
 

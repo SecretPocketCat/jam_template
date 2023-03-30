@@ -1,4 +1,5 @@
 #![feature(let_chains)]
+// #![feature(trait_alias)]
 
 use bevy::app::App;
 #[cfg(debug_assertions)]
@@ -15,6 +16,7 @@ mod io;
 mod player;
 mod render;
 mod state;
+mod state_machine;
 mod time;
 mod tools;
 mod ui;
@@ -23,8 +25,9 @@ pub const GAME_NAME: &str = "todo";
 
 pub fn game_plugin(app: &mut App) {
     app.fn_plugin(state::state_plugin)
-        .fn_plugin(animation::animation_plugin)
         .fn_plugin(assets::assets_plugin)
+        .fn_plugin(state_machine::state_machine_plugin)
+        .fn_plugin(animation::animation_plugin)
         .fn_plugin(audio::audio_plugin)
         .fn_plugin(render::render_plugin)
         .fn_plugin(ui::ui_plugin)

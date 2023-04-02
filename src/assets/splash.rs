@@ -11,7 +11,5 @@ pub struct SplashScreenTextureAssets {
 pub(super) fn print_progress(progress: Res<ProgressCounter>) {
     let progress = progress.progress();
 
-    if progress.total > 0 && progress.done == progress.total {
-        // todo: tween out
-    }
+    if progress.total > 0 && progress.done == progress.total {}
 }

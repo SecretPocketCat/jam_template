@@ -1,4 +1,5 @@
 use crate::{
+    agent::agent::{Direction, Speed},
     assets::textures::TextureAssets,
     input::actions::{PlayerAction, UiAction},
     time::time::{ScaledTime, ScaledTimeDelta},
@@ -18,6 +19,8 @@ pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>)
             ..Default::default()
         })
         .insert(Player)
+        .insert(Direction::default())
+        .insert(Speed(400.))
         .insert(InputManagerBundle::<PlayerAction> {
             input_map: InputMap::default()
                 .insert(DualAxis::left_stick(), PlayerAction::Move)
@@ -42,14 +45,11 @@ pub(super) fn spawn_player(mut commands: Commands, textures: Res<TextureAssets>)
 }
 
 pub(super) fn move_player(
-    time: ScaledTime,
-    mut player_query: Query<(&mut Transform, &ActionState<PlayerAction>), With<Player>>,
+    mut player_q: Query<(&mut Direction, &ActionState<PlayerAction>), With<Player>>,
 ) {
-    let speed = 150.;
-
-    for (mut player_transform, actions) in &mut player_query {
-        if let Some(movement) = actions.clamped_axis_pair(PlayerAction::Move) && movement.xy() != Vec2::ZERO {
-            player_transform.translation += movement.xy().extend(0.) *  speed * time.delta_seconds();
+    for (mut dir, actions) in &mut player_q {
+        if let Some(movement) = actions.clamped_axis_pair(PlayerAction::Move) {
+            dir.0 = movement.xy();
         }
     }
 }

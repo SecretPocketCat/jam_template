@@ -7,6 +7,7 @@ use seldom_fn_plugin::FnPluginExt;
 
 use state::{AppState, GameState};
 
+mod agent;
 mod animation;
 mod assets;
 mod audio;
@@ -26,6 +27,7 @@ pub fn game_plugin(app: &mut App) {
         .fn_plugin(animation::animation_plugin)
         .fn_plugin(assets::assets_plugin)
         .fn_plugin(audio::audio_plugin)
+        .fn_plugin(agent::agent_plugin)
         .fn_plugin(render::render_plugin)
         .fn_plugin(ui::ui_plugin)
         .fn_plugin(input::input_plugin)

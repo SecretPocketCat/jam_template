@@ -4,21 +4,25 @@
 use bevy::prelude::*;
 use bevy::DefaultPlugins;
 use seldom_fn_plugin::FnPluginExt;
+use wrap_it_up::LevelSize;
 use wrap_it_up::GAME_NAME;
 
 fn main() {
+    let lvl_size = LevelSize(Vec2::new(800., 600.));
+
     App::new()
         .insert_resource(Msaa::Off)
         .insert_resource(ClearColor(Color::rgb(0.4, 0.4, 0.4)))
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: GAME_NAME.to_string(), // ToDo
-                resolution: (800., 600.).into(),
+                resolution: (lvl_size.0).into(),
                 canvas: Some("#bevy".to_owned()),
                 ..default()
             }),
             ..default()
         }))
+        .insert_resource(lvl_size)
         .fn_plugin(wrap_it_up::game_plugin)
         .run();
 }

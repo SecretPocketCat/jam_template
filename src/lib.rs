@@ -13,12 +13,15 @@ mod assets;
 mod audio;
 mod input;
 mod io;
+mod level;
 mod player;
 mod render;
 mod state;
 mod time;
 mod tools;
 mod ui;
+
+pub use level::level::LevelSize;
 
 pub const GAME_NAME: &str = "todo";
 

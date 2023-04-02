@@ -3,8 +3,8 @@
 
 use bevy::prelude::*;
 use bevy::DefaultPlugins;
-use bevy_game::GAME_NAME;
 use seldom_fn_plugin::FnPluginExt;
+use wrap_it_up::GAME_NAME;
 
 fn main() {
     App::new()
@@ -19,6 +19,6 @@ fn main() {
             }),
             ..default()
         }))
-        .fn_plugin(bevy_game::game_plugin)
+        .fn_plugin(wrap_it_up::game_plugin)
         .run();
 }

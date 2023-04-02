@@ -510,26 +510,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bevy_game"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_asset_loader",
- "bevy_kira_audio",
- "bevy_pkv",
- "bevy_tweening",
- "bevycheck",
- "embed-resource",
- "image",
- "iyes_progress",
- "leafwing-input-manager",
- "rand",
- "seldom_fn_plugin",
- "serde",
- "winit",
-]
-
-[[package]]
 name = "bevy_gilrs"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3991,6 +3971,26 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "80d0f4e272c85def139476380b12f9ac60926689dd2e01d4923222f40580869d"
 dependencies = [
  "winapi",
+]
+
+[[package]]
+name = "wrap_it_up"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_asset_loader",
+ "bevy_kira_audio",
+ "bevy_pkv",
+ "bevy_tweening",
+ "bevycheck",
+ "embed-resource",
+ "image",
+ "iyes_progress",
+ "leafwing-input-manager",
+ "rand",
+ "seldom_fn_plugin",
+ "serde",
+ "winit",
 ]
 
 [[package]]

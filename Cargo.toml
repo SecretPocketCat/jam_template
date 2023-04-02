@@ -1,10 +1,10 @@
 [package]
-name = "bevy_game"                               # ToDo
+name = "wrap_it_up"
 version = "0.1.0"
 publish = false
-authors = ["Niklas Eicker <git@nikl.me>"]        # ToDo: you are the author ;)
 edition = "2021"
 exclude = ["dist", "build", "assets", "credits"]
+rust-version = "1.70.0"
 
 [profile.dev.package."*"]
 opt-level = 3
